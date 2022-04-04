@@ -1,0 +1,4 @@
+to install npm packages: npm install packageName@version
+
+
+to install npm packages globally: npm install packageName@version -g
