@@ -8,3 +8,6 @@ console.log(chalk.green.bold(
 ))
 console.log(chalk.white.bgGreen('Success!'))
 console.log(chalk.red.bgBlack('Error!'))
+
+console.log(process.argv)
+console.log(process.argv[2])
