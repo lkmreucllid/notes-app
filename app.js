@@ -1,7 +1,6 @@
 const chalk = require('chalk')
-const { argv } = require('yargs')
 const yargs = require('yargs')
-const addNotes = require('./notes.js')
+const notes = require('./notes.js')
 
 //Customizing yargs
 yargs.version('1.1.0')
@@ -11,21 +10,21 @@ yargs.version('1.1.0')
 //Create Add
 yargs.command({
     command: 'add',
-    describe:'Add new Note',
-    builder:{
-        title:{
+    describe: 'Add new Note',
+    builder: {
+        title: {
             describe: 'Note Title',
-            type:'string',
-            demandOption:true
+            type: 'string',
+            demandOption: true
         },
-        body:{
-            describe:'Note Body',
-            demandOption:true,
-            type:'string'
+        body: {
+            describe: 'Note Body',
+            demandOption: true,
+            type: 'string'
         }
     },
-    handler:function (argv){
-        console.log('Title: '+argv.title+ '\n Body: '+argv.body)
+    handler(argv) {
+        notes.addNote(argv.title, argv.body)
     }
 
 })
@@ -34,25 +33,39 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
-    handler: function(){
-        console.log('Removing a Note!')
+    builder: {
+        title: {
+            describe: 'Note Title to be removed',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        notes.removeNote(argv.title)
     }
 })
 
 //Create a Read
 yargs.command({
-    command:'read',
-    describe:'show a single note by id',
-    handler:function(){
-        console.log('Showing a single note by id provided')
+    command: 'read',
+    describe: 'show a single note by id',
+    builder: {
+        title: {
+            describe: 'Title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        notes.readNote(argv.title)
     }
 })
 
 //Create List all Notes
 yargs.command({
     command: 'list',
-    describe:'List all the notes',
-    handler:function(){console.log('Time to List all the notes!')}
+    describe: 'List all the notes',
+    handler() { notes.listNotes() }
 })
 
 //console.log(yargs.argv)
